@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["Hackathon", "Hackathons", "schibsted"],
+  "cSpell.words": ["Hackathon", "Hackathons", "schibsted", "vercel"],
   "files.watcherExclude": {
     "**/node_modules/**": true,
     "**/.git/**": true,
