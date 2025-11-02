@@ -19,15 +19,16 @@ This is a Next.js 16 (canary) application for browsing developer events (hackath
 # Start development server (http://localhost:3000)
 npm run dev
 
-# Production build (outputs to /out directory)
+# Production build
 npm run build
+# (Outputs to the .next directory used by Vercel for deployment)
 
 # Run linter
 npm run lint
 
-# Deploy to GitHub Pages (requires gh-pages setup)
-npm run deploy
-```
+# Deploy to Vercel (recommended)
+vercel --prod
+
 
 ## Architecture
 
