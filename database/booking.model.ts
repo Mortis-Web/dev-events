@@ -22,6 +22,9 @@ const bookingSchema = new Schema<IBooking>(
   { timestamps: true }
 );
 
+// ✅ Unique constraint: one booking per event per email
+bookingSchema.index({ email: 1, eventId: 1 }, { unique: true });
+
 bookingSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("eventId")) {
     try {
