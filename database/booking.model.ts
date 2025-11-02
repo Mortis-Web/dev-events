@@ -15,7 +15,7 @@ const bookingSchema = new Schema<IBooking>(
       type: Schema.Types.ObjectId,
       ref: "Event",
       required: [true, "Event ID is required"],
-      index: true, // Index for faster queries by eventId
+      index: true,
     },
     email: {
       type: String,
@@ -24,7 +24,6 @@ const bookingSchema = new Schema<IBooking>(
       lowercase: true,
       validate: {
         validator: function (v: string): boolean {
-          // RFC 5322 compliant email validation
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         },
         message: "Invalid email format",
@@ -36,16 +35,25 @@ const bookingSchema = new Schema<IBooking>(
   }
 );
 
-// Pre-save hook: Verify that the referenced event exists
+// ✅ Unique compound index: one booking per event per email
+bookingSchema.index({ eventId: 1, email: 1 }, { unique: true });
+
+// 🧠 Optional: handle duplicate key error gracefully
+bookingSchema.post("save", function (error: any, doc: IBooking, next: Function) {
+  if (error.name === "MongoServerError" && error.code === 11000) {
+    next(new Error("This email has already booked this event."));
+  } else {
+    next(error);
+  }
+});
+
+// ✅ Pre-save hook: verify that event exists
 bookingSchema.pre("save", async function (next) {
-  // Only validate eventId if it's new or modified
   if (this.isNew || this.isModified("eventId")) {
     try {
       const eventExists = await Event.findById(this.eventId);
       if (!eventExists) {
-        return next(
-          new Error(`Event with ID ${this.eventId} does not exist`)
-        );
+        return next(new Error(`Event with ID ${this.eventId} does not exist`));
       }
     } catch (error) {
       return next(
@@ -57,13 +65,11 @@ bookingSchema.pre("save", async function (next) {
       );
     }
   }
-
   next();
 });
 
-// Create or retrieve model (prevents OverwriteModelError in development)
+// ✅ Create or reuse model
 const Booking: Model<IBooking> =
-  mongoose.models.Booking ||
-  mongoose.model<IBooking>("Booking", bookingSchema);
+  mongoose.models.Booking || mongoose.model<IBooking>("Booking", bookingSchema);
 
 export default Booking;

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 // Extend the global namespace to include mongoose cache
 declare global {
@@ -11,12 +11,7 @@ declare global {
 // Retrieve MongoDB URI from environment variables
 const MONGODB_URI = process.env.MONGODB_URI;
 
-// Validate that the MongoDB URI is defined
-if (!MONGODB_URI) {
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  );
-}
+
 
 /**
  * Global cache object to maintain connection across hot reloads in development.
@@ -41,8 +36,14 @@ async function connectDB(): Promise<mongoose.Connection> {
     return cached.conn;
   }
 
+
   // If no promise exists, create a new connection
   if (!cached.promise) {
+    // Validate that the MongoDB URI is defined
+    if (!MONGODB_URI) {
+      throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
+    }
+
     const opts = {
       bufferCommands: false, // Disable buffering to fail fast if not connected
     };
