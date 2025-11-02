@@ -11,8 +11,8 @@ type EventPropTypes = {
 };
 const EventCard = ({ title, image, slug, location, date, time }: EventPropTypes) => {
   return (
-    <Link href={`/events/${slug}`} id="event-card" className="group overflow-hidden">
-      <div className="overflow-hidden rounded-[inherit]">
+    <Link href={`/events/${slug}`}  className="group event-card overflow-hidden">
+      <figure className="overflow-hidden rounded-xl border-2 border-transparent">
         <Image
           alt={title}
           src={image}
@@ -20,7 +20,7 @@ const EventCard = ({ title, image, slug, location, date, time }: EventPropTypes)
           height={300}
           className="poster brightness-90 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110"
         />
-      </div>
+      </figure>
       <div className="flex flex-row gap-2">
         <Image src={"/icons/pin.svg"} alt="location" width={14} height={14} />
         <p>{location}</p>

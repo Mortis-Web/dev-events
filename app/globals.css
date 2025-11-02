@@ -176,8 +176,14 @@
     @apply grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3;
   }
 
-  #event-card {
-    @apply  flex flex-col gap-3;
+  .event-card {
+    @apply flex flex-col gap-3;
+
+    figure {
+      background:
+        linear-gradient(transparent, transparent) padding-box,
+        linear-gradient(135deg, var(--light-ray) 0%, transparent , var(--light-ray)) border-box;
+    }
 
     .poster {
       @apply h-[300px] w-full rounded-lg object-cover;
@@ -192,7 +198,7 @@
     }
 
     p {
-      @apply text-light-200 text-sm font-light group-hover:text-white duration-300;
+      @apply text-light-200 text-sm font-light duration-300 group-hover:text-white;
     }
 
     .datetime {
