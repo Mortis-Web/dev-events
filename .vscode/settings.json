@@ -1,0 +1,16 @@
+{
+  "cSpell.words": ["Hackathon", "Hackathons", "schibsted"],
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.next": true,
+    "**/dist": true
+  },
+  "typescript.tsserver.maxTsServerMemory": 2048
+}
