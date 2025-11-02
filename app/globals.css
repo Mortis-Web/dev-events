@@ -198,7 +198,7 @@
     }
 
     p {
-      @apply text-light-200 text-sm font-light duration-300 group-hover:text-white;
+      @apply text-light-200 text-sm font-light duration-300 group-hover:text-white group-hover:text-shadow-[0px_0px_1px_white] ;
     }
 
     .datetime {
