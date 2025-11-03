@@ -182,7 +182,7 @@
     figure {
       background:
         linear-gradient(transparent, transparent) padding-box,
-        linear-gradient(135deg, var(--light-ray) 0%, transparent ,transparent , var(--light-ray)) border-box;
+        linear-gradient(135deg, var(--light-ray) 0%, transparent , var(--light-ray)) border-box;
     }
 
     .poster {
@@ -198,7 +198,7 @@
     }
 
     p {
-      @apply text-light-200 text-sm font-light duration-300 group-hover:text-white group-hover:text-shadow-[0px_0px_1px_white] ;
+      @apply text-light-200 text-sm font-light duration-300 group-hover:text-white;
     }
 
     .datetime {
