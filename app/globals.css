@@ -182,7 +182,7 @@
     figure {
       background:
         linear-gradient(transparent, transparent) padding-box,
-        linear-gradient(135deg, var(--light-ray) 0%, transparent ,transparent, var(--light-ray)) border-box;
+        linear-gradient(135deg, var(--light-ray) 0%, transparent , transparent, var(--light-ray)) border-box;
     }
 
     .poster {
