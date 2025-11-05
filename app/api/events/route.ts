@@ -8,11 +8,11 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const formData = await req.formData();
 
-    for (const [key, value] of formData.entries()) {
-  console.log("🧩", key, "=>", value);
-}
+    //     for (const [key, value] of formData.entries()) {
+    //   console.log("🧩", key, "=>", value);
+    // }
     // ✅ Dynamically group all entries
-const data: Record<string, string | string[]> = {};
+    const data: Record<string, string | string[]> = {};
     for (const [key, value] of formData.entries()) {
       if (key === "image") continue; // handle separately below
 
@@ -29,10 +29,7 @@ const data: Record<string, string | string[]> = {};
     // ✅ Upload image to Cloudinary (if present)
     const file = formData.get("image") as File | null;
     if (!file) {
-      return NextResponse.json(
-        { message: "Image file is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "Image file is required" }, { status: 400 });
     }
 
     const arrayBuffer = await file.arrayBuffer();
@@ -49,9 +46,23 @@ const data: Record<string, string | string[]> = {};
       uploadStream.end(buffer);
     });
 
-    data.image = (uploadResult as { secure_url: string }).secure_url;
-
+    const result = uploadResult as { secure_url?: string };
+    if (!result.secure_url) {
+      return NextResponse.json(
+        { message: "Image upload failed - no URL returned" },
+        { status: 500 }
+      );
+    }
+    data.image = result.secure_url;
     // ✅ Create the event
+
+    if (data.tags && !Array.isArray(data.tags)) {
+      data.tags = [data.tags as string];
+    }
+    if (data.agenda && !Array.isArray(data.agenda)) {
+      data.agenda = [data.agenda as string];
+    }
+    
     const createdEvent = await Event.create(data);
 
     return NextResponse.json(
@@ -74,14 +85,8 @@ export async function GET() {
   try {
     await connectDB();
     const events = await Event.find().sort({ createdAt: -1 });
-    return NextResponse.json(
-      { message: "Events fetched successfully", events },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: "Events fetched successfully", events }, { status: 200 });
   } catch (err) {
-    return NextResponse.json(
-      { message: "Event fetching failed", error: err },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Event fetching failed", error: err }, { status: 500 });
   }
 }
