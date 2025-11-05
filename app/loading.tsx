@@ -1,12 +1,11 @@
-import Loader from "@/components/Loader"
-
+import Loader from "@/components/Loader";
 
 const loading = () => {
   return (
-    <div className="h-dvh fixed inset-0 m-auto w-full flex items-center justify-center">
-    <Loader/>
+    <div className="fixed inset-0 m-auto flex h-dvh w-full items-center justify-center">
+      <Loader />
     </div>
-  )
-}
+  );
+};
 
-export default loading
+export default loading;

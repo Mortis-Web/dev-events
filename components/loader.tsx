@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-export default function Loader() {
+const  Loader =()=> {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <motion.div
@@ -18,3 +18,5 @@ export default function Loader() {
     </div>
   );
 }
+
+export default Loader
