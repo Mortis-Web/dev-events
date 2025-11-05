@@ -11,6 +11,9 @@ import { notFound } from "next/navigation";
 const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/events/${slug}`);
+  if (!response.ok) {
+    return notFound();
+  }
   const {
     data: {
       description,
