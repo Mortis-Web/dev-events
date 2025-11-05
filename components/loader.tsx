@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-export default function Loader() {
+const  Loader =()=> {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <motion.div
@@ -13,8 +13,10 @@ export default function Loader() {
           ease: "linear",
         }}
       >
-        <div className="absolute h-12 w-12 rounded-full border-4 border-indigo-500 border-t-transparent" />
+        <div className="absolute h-12 w-12 rounded-full border-4 border-(--light-ray) border-t-transparent" />
       </motion.div>
     </div>
   );
 }
+
+export default Loader
