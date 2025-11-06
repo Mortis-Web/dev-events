@@ -8,15 +8,11 @@ const page = async () => {
   "use cache";
   cacheLife("hours");
 
-  // ✅ Use a safe base URL for both local and Vercel builds
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
   let events: IEvent[] = [];
 
   try {
-    const response = await fetch(`${baseUrl}/api/events`, { cache: "no-store" });
+const response = await fetch(`${process.env.NODE_ENV === "production" ? "https://dev-events-snowy.vercel.app" : "http://localhost:3000"}/api/events`);
 
     // Make sure the response is JSON, not HTML
     const contentType = response.headers.get("content-type") || "";
