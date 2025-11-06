@@ -9,28 +9,29 @@ import { cacheLife } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-const EventDetailsShell = async ({params}:{params: Promise<string>}) => {
-      'use cache'
-cacheLife('hours')
-  const slug  = await params;
+const EventDetailsShell = async ({ params }: { params: Promise<string> }) => {
+  'use cache'
+  cacheLife('hours')
+  const slug = await params;
 
- let data;
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/events/${slug}`, {
-        next: { revalidate: 60 },
-      });
+  let data;
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ? process.env.NEXT_PUBLIC_BASE_URL : ""}/api/events/${slug}`, {
+      next: { revalidate: 60 },
+    });
 
-      if (!res.ok) {
-        if (res.status === 404) return notFound();
-        throw new Error(`Failed to fetch event: ${res.statusText}`);
-      }
 
-      const json = await res.json();
-      data = json.data;
-    } catch (err) {
-      console.error("Request failed:", err);
-      return notFound();
+    if (!res.ok) {
+      if (res.status === 404) return notFound();
+      throw new Error(`Failed to fetch event: ${res.statusText}`);
     }
+
+    const json = await res.json();
+    data = json.data;
+  } catch (err) {
+    console.error("Request failed:", err);
+    return notFound();
+  }
 
   if (!data || !data.description) return notFound();
 
