@@ -1,7 +1,5 @@
-// tailwind.config.ts
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+const config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -11,7 +9,6 @@ const config: Config = {
     extend: {
       screens: {
         xs: "480px", // custom small breakpoint
-        // keep the default ones too (sm, md, lg etc) if you like
         sm: "640px",
         md: "768px",
         lg: "1024px",
@@ -46,4 +43,4 @@ const config: Config = {
   plugins: [],
 };
 
-export default config;
+module.exports = config;
