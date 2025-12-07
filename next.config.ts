@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  typescript:{
-    ignoreBuildErrors:true,
+  typescript: {
+    ignoreBuildErrors: true,
   },
-  cacheComponents:true,
+  cacheComponents: true,
   images: {
     remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com" }],
   },
@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
   },
   // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
+  output: "export",
 };
 
 export default nextConfig;
