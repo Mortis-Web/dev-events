@@ -33,6 +33,6 @@
     "**/*.mts",
     ".next\\dev/types/**/*.ts",
     ".next\\dev/types/**/*.ts"
-  ],
+, "tailwind.config.js"  ],
   "exclude": ["node_modules"]
 }
