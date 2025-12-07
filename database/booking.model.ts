@@ -13,6 +13,7 @@ const bookingSchema = new Schema<IBooking>(
     eventId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
+      
       required: false, // removed required
     },
   },
